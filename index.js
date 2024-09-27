@@ -14,6 +14,9 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
+//For vercel
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 // Create or update user and return completed tasks
 app.post("/api/create-user", async (req, res) => {
   try {
