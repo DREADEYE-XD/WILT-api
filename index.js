@@ -14,6 +14,12 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
+// Create a handler function
+const handler = async (req, res) => {
+  await prisma.$connect();
+  return app(req, res);
+};
+
 //For vercel
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
@@ -319,4 +325,5 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-module.exports = app;
+// Export the handler function
+module.exports = handler;

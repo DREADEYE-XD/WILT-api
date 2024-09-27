@@ -1,6 +1,3 @@
-const app = require('../index.js');
+const handler = require('../index.js');
 
-// Vercel serverless function handler
-module.exports = (req, res) => {
-  app(req, res);
-};
+module.exports = handler;
