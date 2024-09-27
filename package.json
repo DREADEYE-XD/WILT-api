@@ -1,5 +1,5 @@
 {
-  "name": ".",
+  "name": "WILT-api",
   "version": "1.0.0",
   "description": "",
   "author": "DREADEYE <134378619+DREADEYE-XD@users.noreply.github.com>",
@@ -7,6 +7,8 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
+    "build": "npm run build",
+    "vercel-build": "echo hello this is vercel build",
     "dev": "nodemon index.js",
     "start": "./bin/app",
     "test": "echo \"Error: no test specified\" && exit 1"
