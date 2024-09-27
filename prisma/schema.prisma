@@ -1,0 +1,99 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  sub            String      @unique
+  name           String
+  given_name     String?
+  family_name    String?
+  picture        String?
+  email          String
+  email_verified Boolean?    @default(true)
+  completed      Completed[]
+
+  createdAt DateTime @default(now())
+}
+
+model Completed {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  sub   String
+  date  DateTime
+  day   String
+  user  Users    @relation(fields: [sub], references: [sub])
+  tasks Task[]   @relation(fields: [taskIds], references: [id])
+
+  taskIds String[] @db.ObjectId
+
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  from         String
+  to           String
+  duration     String
+  topic        String
+  description  String
+  completed    Completed[] @relation(fields: [completedIds], references: [id])
+  completedIds String[]    @db.ObjectId
+
+  createdAt DateTime @default(now())
+}
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// model Users {
+//   id             String      @id @default(cuid()) @map("_id")
+//   sub            String      @unique
+//   name           String
+//   given_name     String?
+//   family_name    String?
+//   picture        String?
+//   email          String
+//   email_verified Boolean?    @default(true)
+//   user_tasks     Completed[]
+
+//   createdAt DateTime @default(now())
+// }
+
+// model Completed {
+//   id        String  @id @default(cuid()) @map("_id")
+//   ownerSlug String  @unique
+//   day       String
+//   Users     Users   @relation(fields: [ownerSlug], references: [sub])
+//   tasks     Tasks[]
+
+//   createdAt DateTime @default(now())
+// }
+
+// model Tasks {
+//   id          String @id @default(cuid()) @map("_id")
+//   taskSlug    String @unique
+//   From        String
+//   To          String
+//   duration    String
+//   topic       String
+//   description String
+
+//   completed Completed @relation(fields: [taskSlug], references: [ownerSlug])
+// }
