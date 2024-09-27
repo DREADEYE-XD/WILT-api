@@ -5,9 +5,8 @@
   "author": "DREADEYE <134378619+DREADEYE-XD@users.noreply.github.com>",
   "keywords": [],
   "license": "ISC",
-  "main": "index.js",
   "scripts": {
-    "build": "npm run build",
+    "build": "prisma generate",
     "vercel-build": "echo hello this is vercel build",
     "dev": "nodemon index.js",
     "start": "./bin/app",

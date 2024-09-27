@@ -1,3 +1,6 @@
-import app from "./index.js";
+const app = require('../index.js');
 
-export default app;
+// Vercel serverless function handler
+module.exports = (req, res) => {
+  app(req, res);
+};

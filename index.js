@@ -298,53 +298,6 @@ app.delete("/api/tasks/:taskId(*)", async (req, res) => {
   }
 });
 
-// // Delete a specific task (only for the current day)
-// app.delete("/api/tasks/:taskId(*)", async (req, res) => {
-//   try {
-//     const { taskId } = req.params;
-//     const today = new Date().toISOString().split("T")[0];
-
-//     console.log(`Attempting to delete task with id: ${taskId}`);
-
-//     // Check if the task exists
-//     const task = await prisma.task.findUnique({
-//       where: { id: taskId },
-//       include: { completed: true },
-//     });
-
-//     if (!task) {
-//       console.log(`Task with id ${taskId} not found`);
-//       return res.status(404).json({ error: "Task not found" });
-//     }
-
-//     console.log(`Found task:`, JSON.stringify(task, null, 2));
-
-//     // Check if the task was created today
-//     const taskDate = task.createdAt.toISOString().split("T")[0];
-//     console.log(`Task creation date: ${taskDate}, Today: ${today}`);
-
-//     if (taskDate !== today) {
-//       console.log(`Task creation date does not match current date`);
-//       return res
-//         .status(400)
-//         .json({ error: "Can only delete tasks created today" });
-//     }
-
-//     // Proceed with deletion
-//     await prisma.task.delete({
-//       where: { id: taskId },
-//     });
-
-//     console.log(`Task ${taskId} deleted successfully`);
-//     res.status(200).json({ message: "Task deleted successfully" });
-//   } catch (error) {
-//     console.error("Error deleting task:", error);
-//     res
-//       .status(500)
-//       .json({ error: "An error occurred while deleting the task" });
-//   }
-// });
-
 const port = process.env.PORT || 3001;
 
 async function startServer() {
@@ -365,3 +318,5 @@ process.on("SIGINT", async () => {
   await prisma.$disconnect();
   process.exit(0);
 });
+
+module.exports = app;
